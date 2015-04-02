@@ -27,40 +27,40 @@ class RaffleWindow extends SimpleWindow<Raffle>{
 			fontSize = 30
 		]
 		
-		new Label(mainPanel) => [
-			text = "Desde acá podrás ver los resultados del sorteo para cada uno y volver a realizarlo, cuantas veces quieras."
-		]
+		new Label(mainPanel) => [ text = "Desde acá podrás ver los resultados del sorteo para cada uno y volver a realizarlo, cuantas veces quieras." ]
 		
-		var firstCheckboxPanel = new Panel(mainPanel)
-		firstCheckboxPanel.layout = new HorizontalLayout()
-		
-		
-		new CheckBox(firstCheckboxPanel) => [
-//			bindEnabledToProperty("marriable")
-//			bindValueToProperty("married")			
-		]
-		
-		new Label(firstCheckboxPanel) => [
-			text = "El cumpleañero puede regalar en su cumple"
-		]
-		
-		var secondCheckboxPanel = new Panel(mainPanel)
-		secondCheckboxPanel.layout = new HorizontalLayout()
-		
-		new CheckBox(secondCheckboxPanel) => [	
-//			bindEnabledToProperty("marriable")
-//			bindValueToProperty("married")			
-		]
-		
-		new Label(secondCheckboxPanel) => [
-			text = "Se permiten regalar cruzados"
-		]
+		createCheckboxOptionsPanels(mainPanel)
 		
 		createAssignmentTable(mainPanel)
 	
 	}
 	
-	protected def createAssignmentTable(Panel mainPanel) {
+	private def createCheckboxOptionsPanels(Panel mainPanel) {
+		var crossGiftsCheckboxPanel = new Panel(mainPanel)
+		crossGiftsCheckboxPanel.layout = new HorizontalLayout()
+		
+		
+		new CheckBox(crossGiftsCheckboxPanel) => [
+			bindValueToProperty("crossGifts")			
+		]
+		
+		new Label(crossGiftsCheckboxPanel) => [
+			text = "El cumpleañero puede regalar en su cumple"
+		]
+		
+		var giveGiftOnBirthdayCheckboxPanel = new Panel(mainPanel)
+		giveGiftOnBirthdayCheckboxPanel.layout = new HorizontalLayout()
+		
+		new CheckBox(giveGiftOnBirthdayCheckboxPanel) => [	
+			bindValueToProperty("giveGiftOnBirthday")			
+		]
+		
+		new Label(giveGiftOnBirthdayCheckboxPanel) => [
+			text = "Se permiten regalar cruzados"
+		]
+	}
+	
+	private def createAssignmentTable(Panel mainPanel) {
 		var assignmentTable = new Table<Person>(mainPanel, typeof(Person)) => [
 			bindItemsToProperty("people")
 		]
@@ -85,6 +85,7 @@ class RaffleWindow extends SimpleWindow<Raffle>{
 		
 		new Button(mainPanel) => [
 			caption = "Volver a sortear"
+			onClick [ | this.getModelObject().shake() ]
 		]
 		
 	}
