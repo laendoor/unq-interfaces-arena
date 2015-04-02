@@ -57,20 +57,23 @@ class RaffleWindow extends SimpleWindow<Raffle>{
 			text = "Se permiten regalar cruzados"
 		]
 		
-		var table = new Table<Raffle>(mainPanel, typeof(Raffle)) => [
+		var table = new Table<Person>(mainPanel, typeof(Person)) => [
 			bindItemsToProperty("people")
 		]
 		
-		new Column<Raffle>(table) => [
-			title = "Nombre"
+		new Column<Person>(table) => [
+      		title = "Nombre"
+      		bindContentsToProperty("name")
 		]
 		
-		new Column<Raffle>(table) => [
+		new Column<Person>(table) => [
 			title = "Regala A"
+			bindContentsToProperty("personToGive")	
 		]
 		
-		new Column<Raffle>(table) => [
+		new Column<Person>(table) => [
 			title = "Le Regala"
+			bindContentsToProperty("personWhoGives")
 		]
 
 

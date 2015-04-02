@@ -20,9 +20,6 @@ class RaffleApplication extends Application {
 		raffle.addPerson(p3)
 		raffle.addPerson(p4)
 		
-		
-		
-		
 		new RaffleWindow(this, raffle)
 	}
 	
