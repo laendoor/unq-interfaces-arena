@@ -18,15 +18,15 @@ class RaffleApplication extends Application {
 		var p3 = new Person('Tefi',   new LocalDate(2020, 02, 03))
 		var p4 = new Person('Franco', new LocalDate(2020, 02, 04))
 
-		p1.takePart = true
-		p2.takePart = true
-		p3.takePart = true
-		p4.takePart = true
-
 		raffle.addPerson(p1)
 		raffle.addPerson(p2)
 		raffle.addPerson(p3)
 		raffle.addPerson(p4)
+		
+		raffle.setAsParticipant(p1)
+		raffle.setAsParticipant(p2)
+		raffle.setAsParticipant(p3)
+		raffle.setAsParticipant(p4)
 		
 		raffle.shake()
 		
