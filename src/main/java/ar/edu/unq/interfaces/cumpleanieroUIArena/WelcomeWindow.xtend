@@ -1,50 +1,26 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
 import ar.edu.unq.interfaces.cumpleaniero.Raffle
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.MainWindow
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
 
-class WelcomeWindow extends MainWindow<Raffle> {
+class WelcomeWindow extends SimpleWindow<Raffle> {
 
-
-
-	new() {
-		super(new Raffle)
+	new(WindowOwner parent, Raffle raffle) {
+		super(parent, raffle)	
 	}
 	
-	override createContents(Panel mainPanel) {
-		
+	override protected createFormPanel(Panel mainPanel) {
 		this.title = "Organizador de Cumpleaños"
-		
 		mainPanel.layout = new VerticalLayout
-		
 		this.createLabels(mainPanel)
-		
-		this.createButtons(mainPanel)
-				
-		
 	}
 	
-	def createLabels(Panel mainPanel) {
-		new Label(mainPanel) => [
-			text = "Bienvenido al Cumpleañero!"
-			fontSize = 30
-		]
-		
-		new Label(mainPanel) => [
-			text = "¿Qué desea hacer?"
-			fontSize = 15
-		]
-	}
-	
-	def createButtons(Panel mainPanel) {
-		var actionsPanel = new Panel(mainPanel)
-		actionsPanel.layout = new HorizontalLayout
-		
+	override protected addActions(Panel actionsPanel) {
 		new Button(actionsPanel) => [
 			caption = "Ver Calendario"
 			width = 130
@@ -63,9 +39,17 @@ class WelcomeWindow extends MainWindow<Raffle> {
 			onClick [ ]
 		]
 	}
-
-	def static main(String[] args) {
-		new WelcomeWindow().startApplication
+	
+	def createLabels(Panel mainPanel) {
+		new Label(mainPanel) => [
+			text = "Bienvenido al Cumpleañero!"
+			fontSize = 30
+		]
+		
+		new Label(mainPanel) => [
+			text = "¿Qué desea hacer?"
+			fontSize = 15
+		]
 	}
 
 }
