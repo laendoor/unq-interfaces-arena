@@ -36,7 +36,8 @@ class RaffleApplication extends Application {
 		 */
 //		new WelcomeWindow(this, raffle)
 //		new RaffleWindow(this, raffle)
-		new NextBirthdayWindow(this, raffle)
+//		new NextBirthdayWindow(this, raffle)
+		new CalendarWindow(this, raffle)
 	}
 	
 	def static main(String[] args) {
