@@ -30,7 +30,15 @@ class RaffleApplication extends Application {
 		
 		raffle.shake()
 		
-		new RaffleWindow(this, raffle)
+		/* 
+		 * Mientras no tengamos la navegación entre ventanas mediante botones 
+		 * para ver las distintas ventanas dejamos decomentada la que queremos ver
+		 */
+//		new WelcomeWindow(this, raffle)
+//		new RaffleWindow(this, raffle)
+//		new NextBirthdayWindow(this, raffle)
+		new EditBirthdayWindow(this, p1)
+//		new CalendarWindow(this, raffle)
 	}
 	
 	def static main(String[] args) {
