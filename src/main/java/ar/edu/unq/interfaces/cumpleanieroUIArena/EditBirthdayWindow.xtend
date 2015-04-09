@@ -6,6 +6,9 @@ import org.uqbar.arena.widgets.Panel
 import ar.edu.unq.interfaces.cumpleaniero.Person
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.layout.HorizontalLayout
 
 class EditBirthdayWindow extends SimpleWindow<Person> {
 	
@@ -26,9 +29,42 @@ class EditBirthdayWindow extends SimpleWindow<Person> {
 			text = "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno"
 		]
 		
-		new Label(mainPanel) => [
-			
+		var twoColumnPanel = new Panel(mainPanel) => [
+			layout = new ColumnLayout(2)
+			width = 200
 		]
+		
+		var participantsPanel = new Panel(twoColumnPanel) => [
+			layout = new VerticalLayout
+			width = 2000
+		]
+		
+		new Label(participantsPanel) => [
+			text = "Participantes"
+			fontSize = 20
+		]
+		
+		var namePanel = new Panel(participantsPanel) => [
+			layout = new HorizontalLayout
+		]
+		
+		new Label(participantsPanel) => [
+			text = "Nombre:"
+			fontSize = 10
+		]
+		
+		
+		
+		var editPanel = new Panel(twoColumnPanel) => [
+			layout = new VerticalLayout
+			width = 2000
+		]
+		
+		new Label(editPanel) => [
+			text = "Editando"
+			fontSize = 20
+		]
+		
 	}
 	
 	
