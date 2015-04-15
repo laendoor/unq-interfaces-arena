@@ -9,6 +9,8 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 
 class CalendarWindow extends SimpleWindow<Raffle>{
 	
@@ -19,12 +21,9 @@ class CalendarWindow extends SimpleWindow<Raffle>{
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
-		new Label(mainPanel) => [
-			text = "Calendario de Cumpleaños"
-			fontSize = 30
-		]
-		
-		new Label(mainPanel) => [ text = "Desde acá podrás ver todos los cumpleaños del año actual mes a mes" ]
+
+		new Title(mainPanel, "Calendario de Cumpleaños");
+		new Paragraph(mainPanel, "Desde acá podrás ver todos los cumpleaños del año actual mes a mes")
 		
 		var calendarsPanel= new Panel(mainPanel)
 		calendarsPanel.layout = new ColumnLayout(6)
@@ -38,7 +37,7 @@ class CalendarWindow extends SimpleWindow<Raffle>{
 		var panel = new Panel(calendarsPanel)
 		panel.layout = new VerticalLayout()
 		new Label(panel) => [ text = "Mes (to do)" ]
-		var table = new Table<Person>(panel, typeof(Person)) => []
+		new Table<Person>(panel, typeof(Person)) => []
 		]
 		
 	}
