@@ -9,6 +9,8 @@ import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.tables.Table
 
 class EditBirthdayWindow extends SimpleWindow<Person> {
 	
@@ -20,23 +22,44 @@ class EditBirthdayWindow extends SimpleWindow<Person> {
 	
 	
 	override protected createFormPanel(Panel mainPanel) {
+		
 		new Label(mainPanel) => [
 			text = "Editar Cumpleaños"
-			fontSize = 30
+			fontSize = 25
 		]
 		
 		new Label(mainPanel) => [
 			text = "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno"
 		]
 		
-		var twoColumnPanel = new Panel(mainPanel) => [
+		createTwoColumnPanel(mainPanel)
+		
+	}
+	
+	
+	def createTwoColumnPanel(Panel parentPanel) {
+		
+		var twoColumnPanel = new Panel(parentPanel) => [
 			layout = new ColumnLayout(2)
 			width = 200
 		]
 		
-		var participantsPanel = new Panel(twoColumnPanel) => [
+		createParticipantsPanel(twoColumnPanel)
+		
+		createEditPanel(twoColumnPanel)
+	}
+	
+	
+	def createParticipantsPanel(Panel parentPanel) {
+		
+		var participantsPanel = new Panel(parentPanel) => [
 			layout = new VerticalLayout
 			width = 2000
+		]
+		
+		new Button(participantsPanel) => [
+			caption = "Sortear"
+			onClick [ ]
 		]
 		
 		new Label(participantsPanel) => [
@@ -48,14 +71,24 @@ class EditBirthdayWindow extends SimpleWindow<Person> {
 			layout = new HorizontalLayout
 		]
 		
-		new Label(participantsPanel) => [
+		new Label(namePanel) => [
 			text = "Nombre:"
 			fontSize = 10
 		]
 		
+		new TextBox(namePanel)
 		
 		
-		var editPanel = new Panel(twoColumnPanel) => [
+		new Table<Person>(participantsPanel, typeof(Person)) => [
+			
+			
+			
+		]
+	}
+	
+	def createEditPanel(Panel parentPanel) {
+		
+		var editPanel = new Panel(parentPanel) => [
 			layout = new VerticalLayout
 			width = 2000
 		]
@@ -64,15 +97,11 @@ class EditBirthdayWindow extends SimpleWindow<Person> {
 			text = "Editando"
 			fontSize = 20
 		]
-		
 	}
 	
 	
-	override protected addActions(Panel panel) {
-		new Button(panel) => [
-			caption = "Sortear"
-			onClick [ ]
-		]
+	override protected addActions(Panel mainPanel) {
+		
 	}
 	
 	
