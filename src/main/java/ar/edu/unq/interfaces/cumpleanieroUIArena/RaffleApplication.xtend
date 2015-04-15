@@ -1,7 +1,6 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
 import org.uqbar.arena.Application
-import ar.edu.unq.interfaces.cumpleanieroUIArena.RaffleWindow
 import ar.edu.unq.interfaces.cumpleaniero.Raffle
 import ar.edu.unq.interfaces.cumpleaniero.Person
 import org.joda.time.LocalDate
@@ -29,16 +28,8 @@ class RaffleApplication extends Application {
 		raffle.setAsParticipant(p4)
 		
 		raffle.shake()
-		
-		/* 
-		 * Mientras no tengamos la navegación entre ventanas mediante botones 
-		 * para ver las distintas ventanas dejamos decomentada la que queremos ver
-		 */
-//		new WelcomeWindow(this, raffle)
-//		new RaffleWindow(this, raffle)
-//		new NextBirthdayWindow(this, raffle)
-		new EditBirthdayWindow(this, p1)
-//		new CalendarWindow(this, raffle)
+
+	  	new WelcomeWindow(this, raffle)
 	}
 	
 	def static main(String[] args) {

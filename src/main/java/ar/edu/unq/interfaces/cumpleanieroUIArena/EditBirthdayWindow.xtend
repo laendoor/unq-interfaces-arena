@@ -13,11 +13,13 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import ar.edu.unq.interfaces.cumpleaniero.Raffle
 
-class EditBirthdayWindow extends SimpleWindow<Person> {
+
+class EditBirthdayWindow extends SimpleWindow<Raffle> {
 	
-	new(WindowOwner parent, Person person) {
-		super(parent, person)
+	new(WindowOwner parent, Raffle raffle) {
+		super(parent, raffle)
 		title = "Editar"
 		taskDescription = ""
 	}
@@ -61,7 +63,7 @@ class EditBirthdayWindow extends SimpleWindow<Person> {
 		
 		new Button(participantsPanel) => [
 			caption = "Sortear"
-			onClick [ ]
+			onClick = [ | new RaffleWindow(this, this.modelObject).open ]
 		]
 		
 		new Label(participantsPanel) => [
