@@ -9,6 +9,7 @@ import org.uqbar.arena.windows.WindowOwner
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
+import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
 
 class WelcomeWindow extends SimpleWindow<Raffle> {
 	
@@ -35,7 +36,7 @@ class WelcomeWindow extends SimpleWindow<Raffle> {
 		new Button(actionsPanel) => [
 			caption = "Editar Cumples"
 			width = 130
-			onClick [ | new EditBirthdayWindow(this, this.modelObject ).open()  ]
+			onClick [ | new EditBirthdayWindow(this, new EditBirthdaysAppModel(this.modelObject) ).open()  ]
 		]
 		
 		new Button(actionsPanel) => [

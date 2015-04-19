@@ -13,43 +13,33 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ar.edu.unq.interfaces.cumpleaniero.Raffle
+import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Subtitle
 
-
-class EditBirthdayWindow extends SimpleWindow<Raffle> {
+class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
-	new(WindowOwner parent, Raffle raffle) {
-		super(parent, raffle)
+	new(WindowOwner parent, EditBirthdaysAppModel editAppModel) {
+		super(parent, editAppModel)
 		title = "Editar"
 		taskDescription = ""
 	}
 	
 	
 	override protected createFormPanel(Panel mainPanel) {
-		
-		new Label(mainPanel) => [
-			text = "Editar Cumpleaños"
-			fontSize = 25
-		]
-		
-		new Label(mainPanel) => [
-			text = "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno"
-		]
-		
+		new Title(mainPanel, "Editor Cumpleaños");
+		new Paragraph(mainPanel, "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno")
 		createEditBirthdayPanel(mainPanel)
-		
 	}
 	
 	
 	def createEditBirthdayPanel(Panel parentPanel) {
-		
 		var editBirthdayPanel = new Panel(parentPanel) => [
 			layout = new HorizontalLayout
 			width = 200
 		]
-			
 		createParticipantsPanel(editBirthdayPanel)
-		
 		createEditPanel(editBirthdayPanel)
 	}
 	
@@ -63,25 +53,19 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 		
 		new Button(participantsPanel) => [
 			caption = "Sortear"
-			onClick [ | new RaffleWindow(this, this.modelObject).open ]
+			onClick [ | new RaffleWindow(this, this.modelObject.raffle).open ]
 		]
 		
-		new Label(participantsPanel) => [
-			text = "Participantes"
-			fontSize = 20
-		]
+		new Subtitle(participantsPanel, "Participantes")
 		
-		var namePanel = new Panel(participantsPanel) => [
-			layout = new HorizontalLayout
-		]
+		var namePanel = new Panel(participantsPanel) => [ layout = new HorizontalLayout ]
 		
 		new Label(namePanel) => [
 			text = "Nombre:"
 			fontSize = 10
 		]
 		
-		new TextBox(namePanel)
-		
+		new TextBox(namePanel) => [ bindValueToProperty = "searchedPerson" ]
 		
 		createParticipantsTable(participantsPanel)
 		
@@ -90,24 +74,31 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 	
 	def createParticipantsTable(Panel parentPanel) {
 		
-		var participantsTable = new Table<Person>(parentPanel, typeof(Person))
-		
-		new Column<Person>(participantsTable) => [
-			title = "Nombre"
-			
+		var participantsTable = new Table<Person>(parentPanel, typeof(Person)) => [
+			bindItemsToProperty = "filteredPeople"
+			bindValueToProperty = "selectedPerson"
 		]
 		
 		new Column<Person>(participantsTable) => [
-			title = "Fecha"
+	   		title = "Nombre"
+	   		bindContentsToProperty("name")
 		]
 		
+		
+		new Column<Person>(participantsTable) => [
+	   		title = "Fecha"
+	   		bindContentsToProperty("birthday")
+		]
+		
+
 		new Column<Person>(participantsTable) => [
 			title = "Participa"
+			bindContentsToProperty("takePart")
 		]
 		
 		new Button(parentPanel) => [
 			caption = "Borrar"
-			onClick [ ]
+			onClick [ | modelObject.deleteSelectedPerson() ]
 		]
 	}
 	
@@ -121,12 +112,7 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 		
 		new Button(editPanel) => [
 			caption = "Nuevo"
-			onClick [ ]
-		]
-		
-		new Label(editPanel) => [
-			text = "Editando:"
-			fontSize = 20
+			onClick [ | modelObject.createNewPerson() ]
 		]
 		
 		createNameAndBirthdayPanel(editPanel)
@@ -136,7 +122,9 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 			layout = new HorizontalLayout
 		]
 		
-		new CheckBox(checkBoxPanel)
+		new CheckBox(checkBoxPanel) => [
+			bindValueToProperty("selectedPerson.takePart")
+		]
 		
 		new Label(checkBoxPanel) => [
 			text = "Participa"
@@ -154,11 +142,20 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 		]
 		
 		new Label(nameAndBirthdayPanel) => [
+			text = "Editando:"
+			fontSize = 20
+		]
+		new Label(nameAndBirthdayPanel) => [
+			fontSize = 20
+			bindValueToProperty("selectedPerson.name")
+		]
+		
+		new Label(nameAndBirthdayPanel) => [
 			text = "Nombre:"
 		]
 		
 		new TextBox(nameAndBirthdayPanel) => [
-			
+			bindValueToProperty("selectedPerson.name")
 		]
 		
 		new Label(nameAndBirthdayPanel) => [
@@ -166,7 +163,7 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 		]
 		
 		new TextBox(nameAndBirthdayPanel) => [
-			
+			bindValueToProperty("selectedPerson.birthday")
 		]
 	}
 	
@@ -181,7 +178,7 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 		]
 		
 		new Label(giftsPanel) => [
-			
+			bindValueToProperty("selectedPerson.personToGive.name")	
 		]
 		
 		new Label(giftsPanel) => [
@@ -189,7 +186,7 @@ class EditBirthdayWindow extends SimpleWindow<Raffle> {
 		]
 		
 		new Label(giftsPanel) => [
-			
+			bindValueToProperty("selectedPerson.personWhoGives.name")
 		]
 	}
 	
