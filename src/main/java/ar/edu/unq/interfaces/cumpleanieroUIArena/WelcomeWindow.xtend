@@ -8,13 +8,15 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
+import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
 
 class WelcomeWindow extends SimpleWindow<Raffle> {
 	
-	
+	BirthdayCalendarAppModel calModel
 
 	new(WindowOwner parent, Raffle raffle) {
-		super(parent, raffle)	
+		super(parent, raffle)
+		calModel = new BirthdayCalendarAppModel(this.modelObject)
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -27,19 +29,19 @@ class WelcomeWindow extends SimpleWindow<Raffle> {
 		new Button(actionsPanel) => [
 			caption = "Ver Calendario"
 			width = 130
-			onClick = [ | new CalendarWindow(this, this.modelObject).open() ]
+			onClick [ | new CalendarWindow(this, this.calModel).open() ]
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Editar Cumples"
 			width = 130
-			onClick = [ | new EditBirthdayWindow(this, this.modelObject ).open()  ]
+			onClick [ | new EditBirthdayWindow(this, this.modelObject ).open()  ]
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Próximos"
 			width = 130
-			onClick = [ | new NextBirthdayWindow(this, this.modelObject).open() ]
+			onClick [ | new NextBirthdayWindow(this, this.modelObject).open() ]
 		]
 	}
 	
