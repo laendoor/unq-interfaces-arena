@@ -12,7 +12,7 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledCheckbox
 
-class RaffleWindow extends SimpleWindow<Raffle>{
+class RaffleResultsWindow extends SimpleWindow<Raffle>{
 	
 	new(WindowOwner parent, Raffle raffle) {
 		super(parent, raffle)

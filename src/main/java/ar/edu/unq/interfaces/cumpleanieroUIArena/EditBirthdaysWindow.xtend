@@ -53,7 +53,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		
 		new Button(participantsPanel) => [
 			caption = "Sortear"
-			onClick [ | new RaffleWindow(this, this.modelObject.raffle).open ]
+			onClick [ | new RaffleResultsWindow(this, this.modelObject.raffle).open ]
 		]
 		
 		new Subtitle(participantsPanel, "Participantes")
