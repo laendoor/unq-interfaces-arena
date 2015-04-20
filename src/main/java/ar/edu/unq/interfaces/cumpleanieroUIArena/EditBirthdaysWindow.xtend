@@ -18,6 +18,8 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Subtitle
 import ar.edu.unq.interfaces.cumpleaniero.appModels.RaffleResultsAppModel
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTableTransformer
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTextBoxTransformer
 
 class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
@@ -62,10 +64,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		
 		var namePanel = new Panel(participantsPanel) => [ layout = new HorizontalLayout ]
 		
-		new Label(namePanel) => [
-			text = "Nombre:"
-			fontSize = 10
-		]
+		new Label(namePanel) => [ text = "Nombre:" ]
 		
 		new TextBox(namePanel) => [ bindValueToProperty = "searchedPerson" ]
 		
@@ -89,7 +88,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		
 		new Column<Person>(participantsTable) => [
 	   		title = "Fecha"
-	   		bindContentsToProperty("birthday")
+			bindContentsToProperty("birthday").transformer = new DateTableTransformer
 		]
 		
 
@@ -128,9 +127,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 			bindValueToProperty("selectedPerson.takePart")
 		]
 		
-		new Label(checkBoxPanel) => [
-			text = "Participa"
-		]
+		new Label(checkBoxPanel) => [ text = "Participa" ]
 		
 		
 		createGiftsPanel(editPanel)
@@ -165,7 +162,8 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		]
 		
 		new TextBox(nameAndBirthdayPanel) => [
-			bindValueToProperty("selectedPerson.birthday")
+			bindValueToProperty("selectedPerson.birthday").transformer = new DateTextBoxTransformer
+			
 		]
 	}
 	
