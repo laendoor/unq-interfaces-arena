@@ -20,6 +20,7 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Subtitle
 import ar.edu.unq.interfaces.cumpleaniero.appModels.RaffleResultsAppModel
 import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTableTransformer
 import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTextBoxTransformer
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.TakePartTransformer
 
 class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
@@ -94,7 +95,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 
 		new Column<Person>(participantsTable) => [
 			title = "Participa"
-			bindContentsToProperty("takePart")
+			bindContentsToProperty("takePart").transformer = new TakePartTransformer
 		]
 		
 		new Button(parentPanel) => [
