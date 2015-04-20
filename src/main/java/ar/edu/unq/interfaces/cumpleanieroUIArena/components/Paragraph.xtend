@@ -5,10 +5,14 @@ import org.uqbar.arena.widgets.Panel
 
 class Paragraph extends Label {
 	
-	new(Panel container, String text) {
+	new(Panel container) {
 		super(container)
-		this.text = text
 		this.fontSize = 14
+	}
+	
+	new(Panel container, String text) {
+		this(container)
+		this.text = text
 	}
 	
 }

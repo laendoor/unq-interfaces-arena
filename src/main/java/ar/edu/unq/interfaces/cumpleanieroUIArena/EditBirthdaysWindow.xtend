@@ -17,6 +17,7 @@ import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Subtitle
+import ar.edu.unq.interfaces.cumpleaniero.appModels.RaffleResultsAppModel
 
 class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
@@ -45,6 +46,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
 	
 	def createParticipantsPanel(Panel parentPanel) {
+		val resultsModel = new RaffleResultsAppModel(this.modelObject.raffle)
 		
 		var participantsPanel = new Panel(parentPanel) => [
 			layout = new VerticalLayout
@@ -53,7 +55,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		
 		new Button(participantsPanel) => [
 			caption = "Sortear"
-			onClick [ | new RaffleResultsWindow(this, this.modelObject.raffle).open ]
+			onClick [ | new RaffleResultsWindow(this, resultsModel).open ]
 		]
 		
 		new Subtitle(participantsPanel, "Participantes")

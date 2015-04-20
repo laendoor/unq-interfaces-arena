@@ -42,8 +42,10 @@ class RaffleApplication extends Application {
 		raffle.setAsParticipant(p2)
 		raffle.setAsParticipant(p3)
 		raffle.setAsParticipant(p4)
+		raffle.setAsParticipant(p5)
+		raffle.setAsParticipant(p6)
 		
-		raffle.shake()
+		raffle.shake
 
 	  	new WelcomeWindow(this, raffle)
 	}
