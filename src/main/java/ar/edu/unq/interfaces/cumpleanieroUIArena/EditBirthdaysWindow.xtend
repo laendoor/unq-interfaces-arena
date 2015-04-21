@@ -36,7 +36,11 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		// nothing in actions	
 	}
 	
-	override protected createFormPanel(Panel mainPanel) {
+	/**
+	 * Dibuja el título, una descripción y llama al panel principal
+	 */
+	override protected createFormPanel(Panel mainPanel)
+	{
 		new Title(mainPanel) => [
 			text = "Editor Cumpleaños"
 		]
@@ -46,18 +50,35 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		createEditBirthdayPanel(mainPanel)
 	}
 	
-	
-	def createEditBirthdayPanel(Panel parentPanel) {
+	/**
+	 * Panel principal: 2 columnas
+	 * 
+	 * | Sortear/Participantes/Borrado || Nuevo/Edición |
+	 */
+	def createEditBirthdayPanel(Panel parentPanel)
+	{
 		var editBirthdayPanel = new Panel(parentPanel) => [
 			layout = new HorizontalLayout
-			width = 200
+			width = 500 // no veo que funcione cambiarle el valor
 		]
+		
 		createParticipantsPanel(editBirthdayPanel)
 		createEditPanel(editBirthdayPanel)
 	}
 	
-	
-	def createParticipantsPanel(Panel parentPanel) {
+	/**
+	 * Panel de Participantes: Vertical
+	 * 
+	 * Botón Sortear
+	 * ----------------------
+	 * Filtro
+	 * ----------------------
+	 * Tabla de Participantes
+	 * ----------------------
+	 * Botón Borrar
+	 */
+	def createParticipantsPanel(Panel parentPanel)
+	{
 		val resultsModel = new RaffleResultsAppModel(this.modelObject.raffle)
 		
 		var participantsPanel = new Panel(parentPanel) => [
@@ -74,7 +95,16 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 			text = "Participantes"
 		]
 		
-		var namePanel = new Panel(participantsPanel) => [ layout = new HorizontalLayout ]
+		createFilterPanel(participantsPanel)
+		createParticipantsTable(participantsPanel)
+		
+	}
+	
+	def createFilterPanel(Panel parentPanel)
+	{
+		var namePanel = new Panel(parentPanel) => [
+			layout = new HorizontalLayout
+		]
 		
 		new Label(namePanel) => [ 
 			text = "Nombre:"
@@ -84,9 +114,6 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 			bindValueToProperty = "searchedPerson"
 			withFilter = new NameFilter
 		]
-		
-		createParticipantsTable(participantsPanel)
-		
 	}
 	
 	
@@ -100,15 +127,12 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		new Column<Person>(participantsTable) => [
 	   		title = "Nombre"
 	   		bindContentsToProperty("name")
-	   		
 		]
-		
 		
 		new Column<Person>(participantsTable) => [
 	   		title = "Fecha"
 			bindContentsToProperty("birthday").transformer = new DateTableTransformer
 		]
-		
 
 		new Column<Person>(participantsTable) => [
 			title = "Participa"
@@ -142,7 +166,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		]
 		
 		new CheckBox(checkBoxPanel) => [
-			bindValueToProperty("selectedPerson.takePart")
+			bindValueToProperty("takePartSelectedPerson")
 		]
 		
 		new Label(checkBoxPanel) => [ text = "Participa" ]

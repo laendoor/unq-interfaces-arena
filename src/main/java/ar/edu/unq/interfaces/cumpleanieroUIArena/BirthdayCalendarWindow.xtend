@@ -1,6 +1,5 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
-import ar.edu.unq.interfaces.cumpleaniero.Person
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Label

@@ -51,10 +51,13 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 		{
 			this.modelObject.shake
 		}
-		catch(LimitTriesException e)
-		{
-			throw new UserException("Se ha intentado realizar el sorteo sin lograr una configuración válida. Intente nuevamente.")
+		catch (Exception e) {
+     		throw new UserException(e.message)
 		}
+//		catch(LimitTriesException e)
+//		{
+//			throw new UserException("Se ha intentado realizar el sorteo sin lograr una configuración válida. Intente nuevamente.")
+//		}
 	}
 	
 	/**
