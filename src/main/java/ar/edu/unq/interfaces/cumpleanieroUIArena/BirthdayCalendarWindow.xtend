@@ -25,8 +25,12 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 	
 	override protected createFormPanel(Panel mainPanel)
 	{
-		new Title(mainPanel, "Calendario de Cumpleaños");
-		new Paragraph(mainPanel, "Desde acá podrás ver todos los cumpleaños del año actual mes a mes")
+		new Title(mainPanel) => [
+			text = "Calendario de Cumpleaños"
+		]
+		new Paragraph(mainPanel) => [
+			text = "Desde acá podrás ver todos los cumpleaños del año actual mes a mes"
+		]
 		
 		var calPanel = new Panel(mainPanel) => [
 			layout = new ColumnLayout(6)

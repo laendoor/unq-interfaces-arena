@@ -22,9 +22,13 @@ class NextBirthdayWindow extends SimpleWindow<Raffle>{
 	
 	override protected createFormPanel(Panel mainPanel) {
 		
-		new Title(mainPanel, "Próximos Cumples");
+		new Title(mainPanel) => [
+			text = "Próximos Cumples"
+		]
 		
-		new Paragraph(mainPanel, "Desde acá podrás buscar los cumpleaños que se vienen en orden para cada mes y año")
+		new Paragraph(mainPanel) => [
+			text = "Desde acá podrás buscar los cumpleaños que se vienen en orden para cada mes y año"
+		]
 		
 		var selectsPanel = new Panel(mainPanel) => [
 			layout = new HorizontalLayout

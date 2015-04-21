@@ -10,9 +10,4 @@ class Paragraph extends Label {
 		this.fontSize = 14
 	}
 	
-	new(Panel container, String text) {
-		this(container)
-		this.text = text
-	}
-	
 }

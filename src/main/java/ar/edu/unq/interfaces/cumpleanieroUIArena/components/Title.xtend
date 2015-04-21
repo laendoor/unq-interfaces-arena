@@ -10,9 +10,4 @@ class Title extends Label {
 		this.fontSize = 30
 	}
 	
-	new(Panel container, String text) {
-		this(container)
-		this.text = text
-	}
-	
 }

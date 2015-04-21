@@ -34,8 +34,12 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
 	
 	override protected createFormPanel(Panel mainPanel) {
-		new Title(mainPanel, "Editor Cumpleaños");
-		new Paragraph(mainPanel, "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno")
+		new Title(mainPanel) => [
+			text = "Editor Cumpleaños"
+		]
+		new Paragraph(mainPanel) => [
+			text = "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno"
+		]
 		createEditBirthdayPanel(mainPanel)
 	}
 	
@@ -63,7 +67,9 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 			onClick [ | new RaffleResultsWindow(this, resultsModel).open ]
 		]
 		
-		new Subtitle(participantsPanel, "Participantes")
+		new Subtitle(participantsPanel) => [
+			text = "Participantes"
+		]
 		
 		var namePanel = new Panel(participantsPanel) => [ layout = new HorizontalLayout ]
 		

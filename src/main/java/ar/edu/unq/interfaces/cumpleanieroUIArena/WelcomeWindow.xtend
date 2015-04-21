@@ -48,9 +48,13 @@ class WelcomeWindow extends SimpleWindow<Raffle> {
 	
 	def createLabels(Panel mainPanel) {
 		
-		new Title(mainPanel, "Bienvenido al Cumpleañero!")
+		new Title(mainPanel) => [
+			text = "Bienvenido al Cumpleañero!"
+		]
 		
-		new Paragraph(mainPanel,"¿Qué desea hacer?")
+		new Paragraph(mainPanel) => [
+			text = "¿Qué desea hacer?"
+		]
 		
 	}
 
