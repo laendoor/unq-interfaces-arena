@@ -32,6 +32,9 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		taskDescription = ""
 	}
 	
+	override protected addActions(Panel mainPanel) {
+		// nothing in actions	
+	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		new Title(mainPanel) => [
@@ -194,7 +197,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		]
 		
 		new Label(giftsPanel) => [
-			bindValueToProperty("selectedPerson.personToGive.name")	
+			bindValueToProperty("selectedPerson.personToGive")	
 		]
 		
 		new Label(giftsPanel) => [
@@ -202,13 +205,8 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		]
 		
 		new Label(giftsPanel) => [
-			bindValueToProperty("selectedPerson.personWhoGives.name")
+			bindValueToProperty("selectedPerson.personWhoGives")
 		]
-	}
-	
-	
-	override protected addActions(Panel mainPanel) {
-		
 	}
 	
 	

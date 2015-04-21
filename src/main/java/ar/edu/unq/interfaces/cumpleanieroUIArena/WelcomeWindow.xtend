@@ -13,11 +13,8 @@ import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
 
 class WelcomeWindow extends SimpleWindow<Raffle> {
 	
-	BirthdayCalendarAppModel calModel
-
 	new(WindowOwner parent, Raffle raffle) {
 		super(parent, raffle)
-		calModel = new BirthdayCalendarAppModel(this.modelObject)
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
@@ -30,7 +27,7 @@ class WelcomeWindow extends SimpleWindow<Raffle> {
 		new Button(actionsPanel) => [
 			caption = "Ver Calendario"
 			width = 130
-			onClick [ | new CalendarWindow(this, this.calModel).open() ]
+			onClick [ | new CalendarWindow(this, new BirthdayCalendarAppModel(this.modelObject)).open() ]
 		]
 		
 		new Button(actionsPanel) => [

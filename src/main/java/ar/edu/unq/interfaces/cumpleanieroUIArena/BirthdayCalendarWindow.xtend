@@ -13,6 +13,7 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
 import org.uqbar.arena.widgets.tables.Column
 import ar.edu.unq.interfaces.cumpleaniero.utils.DateTransformer
+import ar.edu.unq.interfaces.cumpleaniero.appModels.PersonAppModel
 
 class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 {
@@ -60,10 +61,10 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 		new Label(monthPanel) => [
 			text = monthName
 		]
-		var table = new Table<Person>(monthPanel, typeof(Person)) => [
+		var table = new Table<PersonAppModel>(monthPanel, typeof(PersonAppModel)) => [
 			bindItemsToProperty(monthNameMethod)
 		]
-		new Column<Person>(table) => [
+		new Column<PersonAppModel>(table) => [
       		title = "Cumpleañero"
       		fixedSize = 100
       		bindContentsToProperty("nameAndDay")
