@@ -11,6 +11,8 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledCheckbox
 import ar.edu.unq.interfaces.cumpleaniero.appModels.RaffleResultsAppModel
+import org.uqbar.commons.model.UserException
+import ar.edu.unq.interfaces.cumpleaniero.exceptions.LimitTriesException
 
 class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 {
@@ -19,6 +21,7 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 		super(parent, appModel)
 		title = "Sorteo"
 		taskDescription = ""
+		this.shake
 	}
 	
 	override protected createFormPanel(Panel mainPanel)
@@ -35,12 +38,23 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 	
 	override protected addActions(Panel mainPanel)
 	{
-		new Button(mainPanel) =>
-		[
+		new Button(mainPanel) => [
 			caption = "Volver a sortear"
-			onClick [ | this.modelObject.shake ]
+			onClick [ | this.shake ]
 		]
 		
+	}
+	
+	private def shake()
+	{
+		try
+		{
+			this.modelObject.shake
+		}
+		catch(LimitTriesException e)
+		{
+			throw new UserException("Se ha intentado realizar el sorteo sin lograr una configuración válida. Intente nuevamente.")
+		}
 	}
 	
 	private def createCheckboxOptionsPanels(Panel mainPanel)
@@ -74,13 +88,13 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 		new Column<Person>(assignmentTable) =>
 		[
 			title = "Regala A"
-			bindContentsToProperty("personToGive.name")	
+			bindContentsToProperty("personToGive")	
 		]
 		
 		new Column<Person>(assignmentTable) =>
 		[
 			title = "Le Regala"
-			bindContentsToProperty("personWhoGives.name")
+			bindContentsToProperty("personWhoGives")
 		]
 	}
 	
