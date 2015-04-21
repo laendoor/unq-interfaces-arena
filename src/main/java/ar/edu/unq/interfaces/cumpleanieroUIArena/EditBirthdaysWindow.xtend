@@ -166,7 +166,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		]
 		
 		new CheckBox(checkBoxPanel) => [
-			bindValueToProperty("selectedPerson.takePart")
+			bindValueToProperty("takePartSelectedPerson")
 		]
 		
 		new Label(checkBoxPanel) => [ text = "Participa" ]
