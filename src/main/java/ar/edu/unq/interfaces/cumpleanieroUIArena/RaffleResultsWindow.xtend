@@ -12,7 +12,7 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledCheckbox
 import ar.edu.unq.interfaces.cumpleaniero.appModels.RaffleResultsAppModel
 import org.uqbar.commons.model.UserException
-import ar.edu.unq.interfaces.cumpleaniero.exceptions.LimitTriesException
+import ar.edu.unq.interfaces.cumpleaniero.exceptions.RaffleException
 
 class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 {
@@ -51,13 +51,9 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 		{
 			this.modelObject.shake
 		}
-		catch (Exception e) {
+		catch (RaffleException e) {
      		throw new UserException(e.message)
 		}
-//		catch(LimitTriesException e)
-//		{
-//			throw new UserException("Se ha intentado realizar el sorteo sin lograr una configuración válida. Intente nuevamente.")
-//		}
 	}
 	
 	/**
