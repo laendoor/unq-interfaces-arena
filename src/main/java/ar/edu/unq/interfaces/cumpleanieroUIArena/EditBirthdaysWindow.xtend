@@ -91,9 +91,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 			onClick [ | new RaffleResultsWindow(this, resultsModel).open ]
 		]
 		
-		new Subtitle(participantsPanel) => [
-			text = "Participantes"
-		]
+		new Subtitle(participantsPanel, "Participantes")
 		
 		createFilterPanel(participantsPanel)
 		createParticipantsTable(participantsPanel)
