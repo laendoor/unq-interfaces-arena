@@ -5,10 +5,13 @@ import org.uqbar.arena.widgets.Panel
 
 class Subtitle extends Label {
 	
-	new(Panel container, String label) {
+	new(Panel container) {
 		super(container)
 		this.fontSize = 20
-		text = label
+	}
+	
+	def text(String t){
+		text = t
 	}
 	
 }

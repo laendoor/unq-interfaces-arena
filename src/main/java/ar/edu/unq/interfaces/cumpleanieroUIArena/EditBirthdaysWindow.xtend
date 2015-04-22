@@ -106,7 +106,9 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 			onClick [ | new RaffleResultsWindow(this, resultsModel).open ]
 		]
 		
-		new Subtitle(leftPanel, "Participantes") // FIXME que funcione igual que Title
+		new Subtitle(leftPanel) => [
+			text = "Participantes"
+		]
 		
 		new LabeledTextbox(leftPanel) => [ 
 			text = "Nombre:"
