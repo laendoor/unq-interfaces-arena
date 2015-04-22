@@ -207,7 +207,7 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		
 		new LabeledCheckbox(parentPanel) => [
 			text = "Participa"
-			bindValueToProperty = "takePartSelectedPerson"
+			bindValueToProperty = "selectedPerson.takePart"
 		]
 		
 		new LabeledData(parentPanel) => [
