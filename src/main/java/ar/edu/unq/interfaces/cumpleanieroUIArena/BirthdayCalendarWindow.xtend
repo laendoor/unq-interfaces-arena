@@ -11,8 +11,8 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
 import org.uqbar.arena.widgets.tables.Column
-import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTransformer
 import ar.edu.unq.interfaces.cumpleaniero.Person
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.MonthTransformer
 
 class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 {
@@ -23,6 +23,13 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 		taskDescription = ""
 	}
 	
+	/**
+	 * Panel principal
+	 * 
+	 * - Titulo
+	 * - Descripcion
+	 * - Panel de Meses-Calendario
+	 */
 	override protected createFormPanel(Panel mainPanel)
 	{
 		new Title(mainPanel) => [
@@ -31,32 +38,44 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 		new Paragraph(mainPanel) => [
 			text = "Desde acá podrás ver todos los cumpleaños del año actual mes a mes"
 		]
-		
-		var calPanel = new Panel(mainPanel) => [
-			layout = new ColumnLayout(6)
-		]
-		
-		createMonthsPanels(calPanel)
+		calendarPanel(mainPanel)
 	}
 	
-	protected def createMonthsPanels(Panel mainPanel)
-	{
-		val panel = new Panel(mainPanel) => [
-			layout = new ColumnLayout(6)
-		]
-		
-		(1..12).forEach[ fillMonth(panel, it) ]
+	/**
+	 * No hay panel de acciones en esta vista
+	 */
+	override protected addActions(Panel actionsPanel) {
+		// not actions over here
 	}
 	
-	def protected fillMonth(Panel mainPanel, int month)
+	/**
+	 * Panel de Calendario
+	 * 
+	 * 12 meses distribuidos en 2 filas de 6 columnas
+	 */
+	protected def calendarPanel(Panel parentPanel)
 	{
-		val monthName = DateTransformer.getMonthNameES(month).toFirstUpper
-		val monthNameMethod = DateTransformer.getMonthNameEN(month).toLowerCase
+		val calPanel = new Panel(parentPanel) => [
+			layout = new ColumnLayout(6)
+		]
+		(1..12).forEach[ monthPanel(calPanel, it) ]
+	}
+	
+	/**
+	 * Panel de Mes
+	 * 
+	 * - Label Nombre
+	 * - Tabla de Cumpleañeros en ese mes
+	 */
+	protected def monthPanel(Panel parentPanel, int month)
+	{
+		// FIXME ?
+		val monthName = MonthTransformer.getNameES(month).toFirstUpper
+		val monthNameMethod = MonthTransformer.getNameEN(month).toLowerCase
 
-		var monthPanel = new Panel(mainPanel) => [ 
-			layout = new VerticalLayout()	
+		var monthPanel = new Panel(parentPanel) => [ 
+			layout = new VerticalLayout
 		]
-		
 		new Label(monthPanel) => [
 			text = monthName
 		]
@@ -68,10 +87,6 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
       		fixedSize = 100
       		bindContentsToProperty("nameAndDay")
 		]
-	}
-	
-	override protected addActions(Panel actionsPanel) {
-		// not actions over here
 	}
 	
 }
