@@ -38,7 +38,7 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 		new Paragraph(mainPanel) => [
 			text = "Desde acá podrás ver todos los cumpleaños del año actual mes a mes"
 		]
-		calendarPanel(mainPanel)
+		createCalendarPanel(mainPanel)
 	}
 	
 	/**
@@ -53,12 +53,12 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 	 * 
 	 * 12 meses distribuidos en 2 filas de 6 columnas
 	 */
-	protected def calendarPanel(Panel parentPanel)
+	protected def createCalendarPanel(Panel parentPanel)
 	{
 		val calPanel = new Panel(parentPanel) => [
 			layout = new ColumnLayout(6)
 		]
-		(1..12).forEach[ monthPanel(calPanel, it) ]
+		(1..12).forEach[ createMonthPanel(calPanel, it) ]
 	}
 	
 	/**
@@ -67,7 +67,7 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 	 * - Label Nombre
 	 * - Tabla de Cumpleañeros en ese mes
 	 */
-	protected def monthPanel(Panel parentPanel, int month)
+	protected def createMonthPanel(Panel parentPanel, int month)
 	{
 		// FIXME ?
 		val monthName = MonthTransformer.getNameES(month).toFirstUpper

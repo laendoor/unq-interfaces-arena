@@ -12,7 +12,7 @@ class RaffleApplication extends Application
 		// FIXME sacar -> cargo gente para no tener que ir agregando
 		//                a mano para probar el next birthday
 		var p1 = new Person('Juan', new LocalDate(2015, 1, 3))
-		var p2 = new Person('José', new LocalDate(2015, 3, 20))
+		var p2 = new Person('Jose', new LocalDate(2015, 3, 20))
 		var p3 = new Person('Pedro', new LocalDate(2015, 5, 13))
 		var p4 = new Person('Pablo', new LocalDate(2015, 6, 7))
 		var p5 = new Person('Estanislao', new LocalDate(2015, 12, 12))

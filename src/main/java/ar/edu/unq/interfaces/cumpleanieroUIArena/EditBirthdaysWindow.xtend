@@ -2,13 +2,10 @@ package ar.edu.unq.interfaces.cumpleanieroUIArena
 
 import ar.edu.unq.interfaces.cumpleaniero.Person
 import org.uqbar.arena.layout.ColumnLayout
-import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
@@ -23,6 +20,19 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTextBoxTransfo
 import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.TakePartTransformer
 import ar.edu.unq.interfaces.cumpleanieroUIArena.filters.NameFilter
 import ar.edu.unq.interfaces.cumpleanieroUIArena.filters.DateFilter
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledTextbox
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledCheckbox
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledData
+
+/*
+ * FIXME importante!
+ * 
+ * No muestra bien los "Regala A" y "Le Regala"
+ * 
+ * Cuando realizás el sorteo los muestra,
+ * pero cuando cambias de persona seleccionada
+ * los pierde
+ */
 
 class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
@@ -32,12 +42,21 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		taskDescription = ""
 	}
 	
+	/**
+	 * No hay panel de acciones explícito
+	 * 
+	 * Las acciones están repartidas en los diferentes paneles
+	 */
 	override protected addActions(Panel mainPanel) {
 		// nothing in actions	
 	}
 	
 	/**
-	 * Dibuja el título, una descripción y llama al panel principal
+	 * Form Panel
+	 * 
+	 * - Título
+	 * - Descripción
+	 * - Panel de Datos
 	 */
 	override protected createFormPanel(Panel mainPanel)
 	{
@@ -47,74 +66,72 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		new Paragraph(mainPanel) => [
 			text = "Desde acá podrás editar los participantes, y realizar el sorteo del encargado del regalo para cada uno"
 		]
-		createEditBirthdayPanel(mainPanel)
+		createDataPanel(mainPanel)
 	}
 	
 	/**
-	 * Panel principal: 2 columnas
+	 * Panel de Datos
 	 * 
-	 * | Sortear/Participantes/Borrado || Nuevo/Edición |
+	 * - Panel Izquierdo
+	 * - Panel Derecho
 	 */
-	def createEditBirthdayPanel(Panel parentPanel)
+	def createDataPanel(Panel parentPanel)
 	{
-		var editBirthdayPanel = new Panel(parentPanel) => [
-			layout = new HorizontalLayout
-			width = 500 // no veo que funcione cambiarle el valor
+		var dataPanel = new Panel(parentPanel) => [
+			layout = new ColumnLayout(2)
 		]
-		
-		createParticipantsPanel(editBirthdayPanel)
-		createEditPanel(editBirthdayPanel)
+		createLeftPanel(dataPanel)
+		createRightPanel(dataPanel)
 	}
 	
 	/**
-	 * Panel de Participantes: Vertical
+	 * Panel Izquierdo
 	 * 
-	 * Botón Sortear
-	 * ----------------------
-	 * Filtro
-	 * ----------------------
-	 * Tabla de Participantes
-	 * ----------------------
-	 * Botón Borrar
+	 * - Action Sortear
+	 * - Descripción
+	 * - Búsqueda (filtro)
+	 * - Tabla de Participantes
+	 * - Action Borrar
 	 */
-	def createParticipantsPanel(Panel parentPanel)
+	def createLeftPanel(Panel parentPanel)
 	{
 		val resultsModel = new RaffleResultsAppModel(this.modelObject.raffle)
 		
-		var participantsPanel = new Panel(parentPanel) => [
+		var leftPanel = new Panel(parentPanel) => [
 			layout = new VerticalLayout
-			width = 2000
 		]
 		
-		new Button(participantsPanel) => [
+		new Button(leftPanel) => [
 			caption = "Sortear"
 			onClick [ | new RaffleResultsWindow(this, resultsModel).open ]
 		]
 		
-		new Subtitle(participantsPanel, "Participantes")
+		new Subtitle(leftPanel, "Participantes") // FIXME que funcione igual que Title
 		
-		createFilterPanel(participantsPanel)
-		createParticipantsTable(participantsPanel)
-		
-	}
-	
-	def createFilterPanel(Panel parentPanel)
-	{
-		var namePanel = new Panel(parentPanel) => [
-			layout = new HorizontalLayout
-		]
-		
-		new Label(namePanel) => [ 
+		new LabeledTextbox(leftPanel) => [ 
 			text = "Nombre:"
-		]
-		
-		new TextBox(namePanel) => [ 
 			bindValueToProperty = "searchedPerson"
 			withFilter = new NameFilter
 		]
+		
+		createParticipantsTable(leftPanel)
+		
+		new Button(leftPanel) => [
+			caption = "Borrar"
+			onClick [ | modelObject.deleteSelectedPerson() ]
+		]
+		
+		// FIXME hack para que tengan la misma altura ambos paneles
+		new Label(leftPanel) => [
+			fontSize = 27
+		]
 	}
 	
-	
+	/**
+	 * Tabla de Participantes (filtrable)
+	 * 
+	 * - Nombre | Fecha de Cumpleaños | Participa del Sorteo
+	 */
 	def createParticipantsTable(Panel parentPanel) {
 		
 		var participantsTable = new Table<Person>(parentPanel, typeof(Person)) => [
@@ -124,112 +141,85 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 		
 		new Column<Person>(participantsTable) => [
 	   		title = "Nombre"
-	   		bindContentsToProperty("name")
+	   		bindContentsToProperty = "name"
 		]
 		
 		new Column<Person>(participantsTable) => [
 	   		title = "Fecha"
-			bindContentsToProperty("birthday").transformer = new DateTableTransformer
+			(bindContentsToProperty = "birthday").transformer = new DateTableTransformer
 		]
 
 		new Column<Person>(participantsTable) => [
 			title = "Participa"
-			bindContentsToProperty("takePart").transformer = new TakePartTransformer
-		]
-		
-		new Button(parentPanel) => [
-			caption = "Borrar"
-			onClick [ | modelObject.deleteSelectedPerson() ]
+			(bindContentsToProperty = "takePart").transformer = new TakePartTransformer
 		]
 	}
 	
 	
-	
-	def createEditPanel(Panel parentPanel) {
+	/**
+	 * Panel Derecho
+	 * 
+	 * - Action Nueva Persona
+	 * - Panel de Edicion y visualización
+	 */
+	def createRightPanel(Panel parentPanel) {
 		
-		var editPanel = new Panel(parentPanel) => [
+		var rightPanel = new Panel(parentPanel) => [
 			layout = new VerticalLayout
 		]
 		
-		new Button(editPanel) => [
+		new Button(rightPanel) => [
 			caption = "Nuevo"
-			onClick [ | modelObject.createNewPerson() ]
+			onClick [ | modelObject.createNewPerson ]
 		]
 		
-		createNameAndBirthdayPanel(editPanel)
-		
-		
-		var checkBoxPanel = new Panel(editPanel) => [
-			layout = new HorizontalLayout
-		]
-		
-		new CheckBox(checkBoxPanel) => [
-			bindValueToProperty("takePartSelectedPerson")
-		]
-		
-		new Label(checkBoxPanel) => [ text = "Participa" ]
-		
-		
-		createGiftsPanel(editPanel)
+		createEditionPanel(rightPanel)
 	}
 	
-	
-	def createNameAndBirthdayPanel(Panel parentPanel) {
-		
-		var nameAndBirthdayPanel = new Panel(parentPanel) => [
-			layout = new ColumnLayout(2)
-		]
-		
-		new Label(nameAndBirthdayPanel) => [
+	/**
+	 * Panel de Edición
+	 * 
+	 * - Visualización de Person en edición
+	 * - Labeled Input de nombre
+	 * - Labeled Input de fecha de nacimiento
+	 * - Labeled Checkbox de participación
+	 * - Visualización de intercambio de regalos
+	 */
+	def createEditionPanel(Panel parentPanel)
+	{
+		new LabeledData(parentPanel) => [
 			text = "Editando:"
 			fontSize = 20
-		]
-		new Label(nameAndBirthdayPanel) => [
-			fontSize = 20
-			bindValueToProperty("selectedPerson.name")
+			bindValueToProperty = "selectedPerson"
 		]
 		
-		new Label(nameAndBirthdayPanel) => [
+		new LabeledTextbox(parentPanel) => [
 			text = "Nombre:"
-		]
-		
-		new TextBox(nameAndBirthdayPanel) => [
-			bindValueToProperty("selectedPerson.name")
+			bindValueToProperty = "selectedPerson.name"
 			withFilter = new NameFilter
 		]
 		
-		new Label(nameAndBirthdayPanel) => [
+		new LabeledTextbox(parentPanel) => [
 			text = "Cumple:"
-		]
-		
-		new TextBox(nameAndBirthdayPanel) => [
-			bindValueToProperty("selectedPerson.birthday").transformer = new DateTextBoxTransformer
+			(bindValueToProperty = "selectedPerson.birthday").transformer = new DateTextBoxTransformer
 			withFilter = new DateFilter
 		]
-	}
-	
-	
-	def createGiftsPanel(Panel parentPanel) {
-		var giftsPanel = new Panel(parentPanel) => [
-			layout = new ColumnLayout(2)
+		
+		new LabeledCheckbox(parentPanel) => [
+			text = "Participa"
+			bindValueToProperty = "takePartSelectedPerson"
 		]
 		
-		new Label(giftsPanel) => [
+		new LabeledData(parentPanel) => [
 			text = "Regala A:"
+			fontSize = 10
+			bindValueToProperty = "selectedPerson.personToGive"
 		]
-		
-		new Label(giftsPanel) => [
-			bindValueToProperty("selectedPerson.personToGive")	
-		]
-		
-		new Label(giftsPanel) => [
+		new LabeledData(parentPanel) => [
 			text = "Le Regala:"
-		]
-		
-		new Label(giftsPanel) => [
-			bindValueToProperty("selectedPerson.personWhoGives")
+			fontSize = 10
+			bindValueToProperty = "selectedPerson.personWhoGives"
 		]
 	}
-	
 	
 }
