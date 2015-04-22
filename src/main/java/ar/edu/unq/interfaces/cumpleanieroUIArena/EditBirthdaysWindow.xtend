@@ -24,6 +24,16 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledTextbox
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledCheckbox
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledData
 
+/*
+ * FIXME importante!
+ * 
+ * No muestra bien los "Regala A" y "Le Regala"
+ * 
+ * Cuando realizás el sorteo los muestra,
+ * pero cuando cambias de persona seleccionada
+ * los pierde
+ */
+
 class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	
 	new(WindowOwner parent, EditBirthdaysAppModel editAppModel) {
