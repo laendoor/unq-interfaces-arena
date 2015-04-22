@@ -14,7 +14,6 @@ import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Subtitle
-import ar.edu.unq.interfaces.cumpleaniero.appModels.RaffleResultsAppModel
 import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTableTransformer
 import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTextBoxTransformer
 import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.TakePartTransformer
@@ -95,15 +94,13 @@ class EditBirthdayWindow extends SimpleWindow<EditBirthdaysAppModel> {
 	 */
 	def createLeftPanel(Panel parentPanel)
 	{
-		val resultsModel = new RaffleResultsAppModel(this.modelObject.raffle)
-		
 		var leftPanel = new Panel(parentPanel) => [
 			layout = new VerticalLayout
 		]
 		
 		new Button(leftPanel) => [
 			caption = "Sortear"
-			onClick [ | new RaffleResultsWindow(this, resultsModel).open ]
+			onClick [ | new RaffleResultsWindow(this, modelObject.resultsModel).open ]
 		]
 		
 		new Subtitle(leftPanel) => [
