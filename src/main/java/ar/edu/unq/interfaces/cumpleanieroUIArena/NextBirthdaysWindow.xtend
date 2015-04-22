@@ -1,22 +1,23 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
+import ar.edu.unq.interfaces.cumpleaniero.Person
+import ar.edu.unq.interfaces.cumpleaniero.Raffle
+import ar.edu.unq.interfaces.cumpleaniero.appModels.Month
+import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledSelector
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
+import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.tables.Table
-import ar.edu.unq.interfaces.cumpleaniero.Person
-import org.uqbar.arena.widgets.tables.Column
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledSelector
-import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
-import ar.edu.unq.interfaces.cumpleaniero.appModels.Month
 
 class NextBirthdayWindow extends SimpleWindow<NextBirthdaysAppModel>{
 	
-	new(WindowOwner parent, NextBirthdaysAppModel appModel) {
-		super(parent, appModel)
+	new(WindowOwner parent, Raffle raffle) {
+		super(parent, new NextBirthdaysAppModel(raffle))
 		title = "Próximos"
 		taskDescription = ""
 	}

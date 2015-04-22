@@ -4,15 +4,14 @@ import org.uqbar.arena.Application
 import ar.edu.unq.interfaces.cumpleaniero.Raffle
 import ar.edu.unq.interfaces.cumpleaniero.Person
 import org.joda.time.LocalDate
-import ar.edu.unq.interfaces.cumpleaniero.appModels.WelcomeWindowAppModel
 
 class RaffleApplication extends Application
 {
 	override createMainWindow()
 	{
-		var r = this.initTestPopulation
+		var raffle = this.initTestPopulation
 		
-	  	new WelcomeWindow(this, new WelcomeWindowAppModel(r))
+	  	new WelcomeWindow(this, raffle)
 	}
 	
 	def static main(String[] args) {

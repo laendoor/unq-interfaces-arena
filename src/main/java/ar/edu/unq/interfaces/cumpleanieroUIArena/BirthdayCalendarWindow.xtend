@@ -1,24 +1,25 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
+import ar.edu.unq.interfaces.cumpleaniero.Person
+import ar.edu.unq.interfaces.cumpleaniero.Raffle
+import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.MonthTransformer
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
-import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
-import org.uqbar.arena.widgets.tables.Column
-import ar.edu.unq.interfaces.cumpleaniero.Person
-import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.MonthTransformer
 
 class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 {
-	new(WindowOwner parent, BirthdayCalendarAppModel calModel)
+	new(WindowOwner parent, Raffle raffle)
 	{
-		super(parent, calModel)
+		super(parent, new BirthdayCalendarAppModel(raffle))
 		title = "Calendario"
 		taskDescription = ""
 	}
@@ -79,7 +80,7 @@ class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 		new Label(monthPanel) => [
 			text = monthName
 		]
-		var table = new Table<Person>(monthPanel, typeof(Person)) => [
+		var table = new Table<Person>(monthPanel, Person) => [
 			bindItemsToProperty(monthNameMethod)
 		]
 		new Column<Person>(table) => [

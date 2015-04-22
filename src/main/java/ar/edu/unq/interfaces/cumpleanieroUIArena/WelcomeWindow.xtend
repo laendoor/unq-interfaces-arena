@@ -1,17 +1,17 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
+import ar.edu.unq.interfaces.cumpleaniero.Raffle
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
+import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
-import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
-import ar.edu.unq.interfaces.cumpleaniero.appModels.WelcomeWindowAppModel
 
-class WelcomeWindow extends SimpleWindow<WelcomeWindowAppModel> {
+class WelcomeWindow extends SimpleWindow<Raffle> {
 	
-	new(WindowOwner parent, WelcomeWindowAppModel appModel) {
-		super(parent, appModel)
+	new(WindowOwner parent, Raffle raffle) {
+		super(parent, raffle)
 	}
 	
 	/**
@@ -44,19 +44,19 @@ class WelcomeWindow extends SimpleWindow<WelcomeWindowAppModel> {
 		new Button(actionsPanel) => [
 			caption = "Ver Calendario"
 			width = 200
-			onClick [ | new CalendarWindow(this, modelObject.calAppModel).open() ]
+			onClick [ | new CalendarWindow(this, modelObject).open() ]
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Editar Cumples"
 			width = 200
-			onClick [ | new EditBirthdayWindow(this, modelObject.editAppModel).open()  ]
+			onClick [ | new EditBirthdayWindow(this, modelObject).open()  ]
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Próximos"
 			width = 200
-			onClick [ | new NextBirthdayWindow(this, modelObject.nextsAppModel).open() ]
+			onClick [ | new NextBirthdayWindow(this, modelObject).open() ]
 		]
 	}
 
