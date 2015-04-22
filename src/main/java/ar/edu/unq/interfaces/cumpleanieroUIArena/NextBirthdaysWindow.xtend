@@ -11,7 +11,6 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledSelector
 import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
-import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTableTransformer
 
 class NextBirthdayWindow extends SimpleWindow<NextBirthdaysAppModel>{
 	
@@ -51,7 +50,7 @@ class NextBirthdayWindow extends SimpleWindow<NextBirthdaysAppModel>{
 		
 		new Column<Person>(assignmentTable) => [
 	   		title = "Dia"
-			bindContentsToProperty("birthday").transformer = new DateTableTransformer // FIXME tiene que ir solo el dia
+			bindContentsToProperty("birthday.dayOfMonth")
 		]
 		
 		new Column<Person>(assignmentTable) => [
