@@ -45,9 +45,8 @@ class NextBirthdayWindow extends SimpleWindow<NextBirthdaysAppModel>{
 			bindItemsToProperty = "months"
 		]
 		
-		
 		var assignmentTable = new Table<Person>(mainPanel, typeof(Person)) => [
-			bindItemsToProperty = "filter"
+			bindItemsToProperty = "filteredPeople"
 		]
 		
 		new Column<Person>(assignmentTable) => [
