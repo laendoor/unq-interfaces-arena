@@ -11,11 +11,6 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledSelector
 import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
-<<<<<<< HEAD
-=======
-import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTableTransformer
-import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateDayTableTransformer
->>>>>>> ec20b6bb49be172ce40c6b49e6c85f10e77aff91
 
 class NextBirthdayWindow extends SimpleWindow<NextBirthdaysAppModel>{
 	
