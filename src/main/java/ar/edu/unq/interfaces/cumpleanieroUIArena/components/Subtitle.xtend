@@ -10,8 +10,4 @@ class Subtitle extends Label {
 		this.fontSize = 20
 	}
 	
-	def text(String t){
-		text = t
-	}
-	
 }
