@@ -11,8 +11,8 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
 import org.uqbar.arena.widgets.tables.Column
-import ar.edu.unq.interfaces.cumpleaniero.utils.DateTransformer
 import ar.edu.unq.interfaces.cumpleaniero.appModels.PersonAppModel
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTransformer
 
 class CalendarWindow extends SimpleWindow<BirthdayCalendarAppModel>
 {

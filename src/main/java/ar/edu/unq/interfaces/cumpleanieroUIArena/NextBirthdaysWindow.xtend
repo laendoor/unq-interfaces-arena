@@ -1,7 +1,6 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
 import org.uqbar.arena.windows.SimpleWindow
-import ar.edu.unq.interfaces.cumpleaniero.Raffle
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.layout.HorizontalLayout
@@ -11,11 +10,13 @@ import org.uqbar.arena.widgets.tables.Column
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.LabeledSelector
+import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
+import ar.edu.unq.interfaces.cumpleanieroUIArena.transformers.DateTableTransformer
 
-class NextBirthdayWindow extends SimpleWindow<Raffle>{
+class NextBirthdayWindow extends SimpleWindow<NextBirthdaysAppModel>{
 	
-	new(WindowOwner parent, Raffle raffle) {
-		super(parent, raffle)
+	new(WindowOwner parent, NextBirthdaysAppModel appModel) {
+		super(parent, appModel)
 		title = "Próximos"
 		taskDescription = ""
 	}
@@ -33,22 +34,30 @@ class NextBirthdayWindow extends SimpleWindow<Raffle>{
 		var selectsPanel = new Panel(mainPanel) => [
 			layout = new HorizontalLayout
 		]
+
+		new LabeledSelector(selectsPanel, "Año") => [
+			bindValueToProperty = "year"
+			bindItemsToProperty = "years"
+		]
 		
-		new LabeledSelector(selectsPanel, "Año");
-		
-		new LabeledSelector(selectsPanel, "Mes");
+		new LabeledSelector(selectsPanel, "Mes") => [
+			bindValueToProperty = "month"
+			bindItemsToProperty = "months"
+		]
 		
 		
 		var assignmentTable = new Table<Person>(mainPanel, typeof(Person)) => [
-			// bindItemsToProperty("people")
+			bindItemsToProperty = "filter"
 		]
 		
 		new Column<Person>(assignmentTable) => [
-			// title = "Día"
+	   		title = "Dia"
+			bindContentsToProperty("birthday").transformer = new DateTableTransformer // FIXME tiene que ir solo el dia
 		]
 		
 		new Column<Person>(assignmentTable) => [
-			// title = "Nombre"
+	   		title = "Nombre"
+			bindContentsToProperty("name")
 		]
 	}
 	

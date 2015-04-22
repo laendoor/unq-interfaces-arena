@@ -10,6 +10,7 @@ import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
 import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
 import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
+import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
 
 class WelcomeWindow extends SimpleWindow<Raffle> {
 	
@@ -39,7 +40,7 @@ class WelcomeWindow extends SimpleWindow<Raffle> {
 		new Button(actionsPanel) => [
 			caption = "Próximos"
 			width = 130
-			onClick [ | new NextBirthdayWindow(this, this.modelObject).open() ]
+			onClick [ | new NextBirthdayWindow(this, new NextBirthdaysAppModel(this.modelObject)).open() ]
 		]
 	}
 	
