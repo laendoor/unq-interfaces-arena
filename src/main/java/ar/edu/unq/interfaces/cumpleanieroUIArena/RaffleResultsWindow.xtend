@@ -21,9 +21,17 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 		super(parent, appModel)
 		title = "Sorteo"
 		taskDescription = ""
-		this.shake
+		shake
 	}
 	
+	/**
+	 * Panel principal
+	 * 
+	 * - Titulo
+	 * - Descripción
+	 * - Opciones del sorteo
+	 * - Tabla de asignaciones
+	 */
 	override protected createFormPanel(Panel mainPanel)
 	{
 		new Title(mainPanel) => [
@@ -32,78 +40,88 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 		new Paragraph(mainPanel) => [
 			text = "Desde acá podrás ver los resultados del sorteo para cada uno y volver a realizarlo, cuantas veces quieras."
 		]
-		createCheckboxOptionsPanels(mainPanel)
+		
+		createOptionsPanel(mainPanel)
+		
 		createAssignmentTable(mainPanel)
 	}
 	
+	/**
+	 * Panel de acciones
+	 * 
+	 * - Volver a sortear
+	 */
 	override protected addActions(Panel mainPanel)
 	{
 		new Button(mainPanel) => [
 			caption = "Volver a sortear"
-			onClick [ | this.shake ]
+			onClick [ | shake ]
 		]
 		
 	}
 	
-	private def shake()
+	/**
+	 * Realizar sorteo
+	 * 
+	 * Intenta llamar al modelo para realizar el sorteo,
+	 * si no puede muestra el error
+	 */
+	protected def shake()
 	{
 		try
 		{
-			this.modelObject.shake
+			modelObject.shake
 		}
-		catch (RaffleException e) {
+		catch (RaffleException e)
+		{
      		throw new UserException(e.message)
 		}
 	}
 	
 	/**
-	 * Genera los checkbos para permitir (o no) regalos cruzados
-	 * y que un participante regale a quien cumple el mismo día que él
+	 * Panel de Opciones
+	 * 
+	 * - Checkbox: permite regalar a quien cumple el mismo día
+	 * - Checkbox: permite regalos cruzados
 	 */
-	private def createCheckboxOptionsPanels(Panel mainPanel)
+	protected def createOptionsPanel(Panel mainPanel)
 	{
-	    new LabeledCheckbox(mainPanel) =>
-	    [
+	    new LabeledCheckbox(mainPanel) => [
 	    	text = "El cumpleañero puede regalar en su cumple"
-	    	bindValueToProperty("sameBirthday")
+	    	bindValueToProperty = "sameBirthday"
 	    ]
 	    
-	    new LabeledCheckbox(mainPanel) =>
-	    [
+	    new LabeledCheckbox(mainPanel) => [
 	    	text = "Se permiten regalar cruzados"
-	    	bindValueToProperty("crossGifts")
+	    	bindValueToProperty = "crossGifts"
 	    ]
 	}
 	
 	/**
-	 * Genera una tabla con los participantes del sorteo.
+	 * Tabla de Asignaciones
 	 * 
-	 * Se hace binding contra RaffleResultsAppModel.result
-	 * lo cual retorna una Lista de Personas
-	 * 
-	 * | Participante P | Participante Q Regalado por P | Participante R que e Regala a P |
-	 * 
-	 * // FIXME ver si se pueden mejorar las dimensiones de la tabla
+	 * | Participante P | Participante Q Regalado por P | Participante R que le Regala a P |
 	 */
 	private def createAssignmentTable(Panel mainPanel)
 	{
+		// TODO ver si se pueden mejorar las dimensiones de la tabla
 		var assignmentTable = new Table<Person>(mainPanel, typeof(Person)) => [
-			bindItemsToProperty("result")
+			bindItemsToProperty = "result"
 		]
 		
 		new Column<Person>(assignmentTable) => [
 			title = "Nombre"
-			bindContentsToProperty("name")
+			bindContentsToProperty = "name"
 		]
 		
 		new Column<Person>(assignmentTable) => [
 			title = "Regala A"
-			bindContentsToProperty("personToGive")	
+			bindContentsToProperty = "personToGive"	
 		]
 		
 		new Column<Person>(assignmentTable) => [
 			title = "Le Regala"
-			bindContentsToProperty("personWhoGives")
+			bindContentsToProperty = "personWhoGives"
 		]
 	}
 	
