@@ -1,20 +1,17 @@
 package ar.edu.unq.interfaces.cumpleanieroUIArena
 
-import ar.edu.unq.interfaces.cumpleaniero.Raffle
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Title
 import ar.edu.unq.interfaces.cumpleanieroUIArena.components.Paragraph
-import ar.edu.unq.interfaces.cumpleaniero.appModels.BirthdayCalendarAppModel
-import ar.edu.unq.interfaces.cumpleaniero.appModels.EditBirthdaysAppModel
-import ar.edu.unq.interfaces.cumpleaniero.appModels.NextBirthdaysAppModel
+import ar.edu.unq.interfaces.cumpleaniero.appModels.WelcomeWindowAppModel
 
-class WelcomeWindow extends SimpleWindow<Raffle> {
+class WelcomeWindow extends SimpleWindow<WelcomeWindowAppModel> {
 	
-	new(WindowOwner parent, Raffle raffle) {
-		super(parent, raffle)
+	new(WindowOwner parent, WelcomeWindowAppModel appModel) {
+		super(parent, appModel)
 	}
 	
 	/**
@@ -44,26 +41,22 @@ class WelcomeWindow extends SimpleWindow<Raffle> {
 	 */
 	override protected addActions(Panel actionsPanel)
 	{
-		val calAppModel = new BirthdayCalendarAppModel(modelObject)
-		val editAppModel = new EditBirthdaysAppModel(modelObject)
-		val nextsAppModel = new NextBirthdaysAppModel(modelObject)
-		
 		new Button(actionsPanel) => [
 			caption = "Ver Calendario"
 			width = 200
-			onClick [ | new CalendarWindow(this, calAppModel).open() ]
+			onClick [ | new CalendarWindow(this, modelObject.calAppModel).open() ]
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Editar Cumples"
 			width = 200
-			onClick [ | new EditBirthdayWindow(this, editAppModel).open()  ]
+			onClick [ | new EditBirthdayWindow(this, modelObject.editAppModel).open()  ]
 		]
 		
 		new Button(actionsPanel) => [
 			caption = "Próximos"
 			width = 200
-			onClick [ | new NextBirthdayWindow(this, nextsAppModel).open() ]
+			onClick [ | new NextBirthdayWindow(this, modelObject.nextsAppModel).open() ]
 		]
 	}
 
