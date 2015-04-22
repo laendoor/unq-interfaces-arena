@@ -87,12 +87,12 @@ class RaffleResultsWindow extends SimpleWindow<RaffleResultsAppModel>
 	protected def createOptionsPanel(Panel mainPanel)
 	{
 	    new LabeledCheckbox(mainPanel) => [
-	    	text = "El cumpleañero puede regalar en su cumple"
+	    	text = "\nEl cumpleañero puede regalar en su cumple"
 	    	bindValueToProperty = "sameBirthday"
 	    ]
 	    
 	    new LabeledCheckbox(mainPanel) => [
-	    	text = "Se permiten regalar cruzados"
+	    	text = "\nSe permiten regalar cruzados"
 	    	bindValueToProperty = "crossGifts"
 	    ]
 	}

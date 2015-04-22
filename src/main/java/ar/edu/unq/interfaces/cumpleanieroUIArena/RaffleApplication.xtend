@@ -22,7 +22,6 @@ class RaffleApplication extends Application
 	protected def initTestPopulation()
 	{
 		// FIXME sacar -> cargo gente para no tener que ir agregando
-		//                a mano para probar el next birthday
 		var p1 = new Person('Juan', new LocalDate(2012, 1, 3))
 		var p2 = new Person('Tefi', new LocalDate(2013, 1, 15))
 		var p3 = new Person('Juancho', new LocalDate(2014, 2, 3))
