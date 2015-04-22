@@ -3,13 +3,12 @@ package ar.edu.unq.interfaces.cumpleanieroUIArena.components
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.Container
 import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.layout.ColumnLayout
 
-class LabeledCheckbox extends Panel {
+class LabeledData extends Panel {
 	
 	Label label
-	CheckBox checkbox;
+	Label data;
 	
 	new(Container container)
 	{
@@ -18,20 +17,24 @@ class LabeledCheckbox extends Panel {
 			layout = new ColumnLayout(2)
 		]
 		
-		checkbox = new CheckBox(panel)
 		label = new Label(panel)
+		data = new Label(panel)
 	}
 	
 	def text(String text)
 	{
-		label.setText(text)
+		label.setText = text
+	}
+	
+	def fontSize(int size)
+	{
+		label.fontSize = size
+		data.fontSize = size
 	}
 	
 	def bindValueToProperty(String property)
 	{
-		checkbox.bindValueToProperty(property)
+		data.bindValueToProperty = property
 	}
-	
-	
 	
 }
